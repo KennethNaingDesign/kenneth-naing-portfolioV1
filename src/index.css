@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "DM Serif Display", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Restrained custom warm colors for accents from Geometric Balance */
+  --color-accent-amber: #8c6b5d; /* Refined terracotta-earth tone */
+  --color-accent-amber-dark: #6e4e41;
+}
+
+/* Custom scroll behavior and background tweaks */
+html {
+  scroll-behavior: smooth;
+  background-color: #0c0c0c;
+  color: #e8e4df;
+}
+
+::selection {
+  background-color: #8c6b5d;
+  color: #0c0c0c;
+}
+
+/* Custom minimal scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0c0c0c;
+}
+::-webkit-scrollbar-thumb {
+  background: #252528;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8c6b5d;
+}
+
