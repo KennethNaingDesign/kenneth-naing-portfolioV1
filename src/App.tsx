@@ -25,6 +25,7 @@ import {
 import { PROJECTS, PROJECT_CATEGORIES, BIOGRAPHY, RECOGNITIONS, SOCIAL_LINKS } from "./data";
 import { Project, ProjectCategory } from "./types";
 import ProjectDetail from "./components/ProjectDetail";
+import { resolveAssetPath } from "./utils/resolveAssetPath";
 
 export default function App() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
@@ -311,7 +312,7 @@ export default function App() {
                 
                 <div className="overflow-hidden aspect-[3/4] bg-[#1a1a1a] rounded relative shadow-2xl filter grayscale contrast-110 hover:grayscale-0 transition-all duration-700">
                   <img 
-                    src="/src/assets/images/kenneth_portrait_1781761899695_result.webp" 
+                    src={resolveAssetPath("/src/assets/images/kenneth_portrait_1781761899695_result.webp")} 
                     alt="Kenneth Naing" 
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover object-center scale-102 hover:scale-105 transition-transform duration-700 ease-out" 

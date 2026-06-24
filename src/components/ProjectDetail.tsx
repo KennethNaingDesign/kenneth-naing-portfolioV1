@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { Project } from "../types";
 import ProjectImageSections from "./ProjectImageSections";
+import { resolveAssetPath } from "../utils/resolveAssetPath";
 
 function getYoutubeEmbedUrl(url: string): string | null {
   const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&?/]+)/);
@@ -128,7 +129,7 @@ export default function ProjectDetail({ project, onBack, onNextProject }: Projec
               {["i-wish-i", "before-da-coffee", "saltwater", "drk-campaign"].includes(project.id) && (
                 <div className="inline-flex items-center gap-2.5 border border-white/10 bg-[#121113] px-3 py-1.5 rounded">
                   <img
-                    src="/src/assets/images/SomethingStudio-Logo_result.webp"
+                    src={resolveAssetPath("/src/assets/images/SomethingStudio-Logo_result.webp")}
                     alt="Something Studio logo"
                     referrerPolicy="no-referrer"
                     className="h-4 w-auto object-contain opacity-90"

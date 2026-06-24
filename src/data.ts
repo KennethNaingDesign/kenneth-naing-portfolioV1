@@ -1,4 +1,5 @@
 ﻿import { Project, Achievement } from "./types";
+import { resolveAssetPath } from "./utils/resolveAssetPath";
 
 export const PROJECT_CATEGORIES: (
   | "All"
@@ -18,7 +19,7 @@ export const PROJECT_CATEGORIES: (
   "Content & Media"
 ];
 
-export const PROJECTS: Project[] = [
+const RAW_PROJECTS: Project[] = [
   {
     id: "i-wish-i",
     title: "I Wish I...",
@@ -633,6 +634,19 @@ export const PROJECTS: Project[] = [
     ]
   }
 ];
+
+export const PROJECTS: Project[] = RAW_PROJECTS.map((project) => ({
+  ...project,
+  image: resolveAssetPath(project.image),
+  poster: project.poster ? resolveAssetPath(project.poster) : undefined,
+  imageSections: project.imageSections?.map((section) => ({
+    ...section,
+    images: section.images.map((image) => ({
+      ...image,
+      src: resolveAssetPath(image.src),
+    })),
+  })),
+}));
 
 export const BIOGRAPHY = {
   text: "Kenneth Naing is a Multimedia Designer, Filmmaker, and 3D Artist based in Thailand. Working across brand identity, motion graphics, 3D, and film. His work has reached international audiences alongside narrative projects that have screened at international film festivals. He is currently looking for a team worth joining.",
