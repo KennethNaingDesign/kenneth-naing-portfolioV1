@@ -30,7 +30,6 @@ import { resolveAssetPath } from "./utils/resolveAssetPath";
 export default function App() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [activeProject, setActiveProject] = useState<Project | null>(null);
-  const [bangkokTime, setBangkokTime] = useState<string>("");
   const highlightedBiographyParts = BIOGRAPHY.text.split(/(The Nerds Creative|Something Studio)/g);
 
   const openProject = (projectId: string) => {
@@ -40,26 +39,6 @@ export default function App() {
     setActiveProject(project);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
-  // Live Bangkok / ICT Clock (UTC +7)
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      // Calculate UTC +7
-      const utc = now.getTime() + now.getTimezoneOffset() * 60000;
-      const bkk = new Date(utc + 3600000 * 7);
-      
-      const hours = bkk.getHours().toString().padStart(2, "0");
-      const minutes = bkk.getMinutes().toString().padStart(2, "0");
-      const seconds = bkk.getSeconds().toString().padStart(2, "0");
-      
-      setBangkokTime(`${hours}:${minutes}:${seconds} ICT`);
-    };
-
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   // Listen for URL changes to support deep linking/routing to project pages
   useEffect(() => {
@@ -147,7 +126,7 @@ export default function App() {
       <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-neutral-950/20 rounded-full blur-[150px] pointer-events-none" />
 
       {/* Floating Header */}
-      <header className="fixed top-0 left-0 w-full z-40 bg-[#0c0c0c]/80 backdrop-blur-md border-b border-[#ffffff15] px-6 py-4 md:px-12 flex justify-between items-center transition-all duration-300">
+      <header className="fixed top-0 left-0 w-full z-40 bg-[#0c0c0c]/80 backdrop-blur-md border-b border-[#ffffff15] px-6 py-4 md:px-12 flex justify-between items-center transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
         <div className="flex items-center space-x-3">
           <a 
             href="#hero" 
@@ -155,7 +134,7 @@ export default function App() {
               window.location.hash = "hero";
               setActiveProject(null);
             }}
-            className="font-serif text-lg tracking-wider font-semibold hover:text-[#8c6b5d] transition-colors duration-300"
+            className="font-serif text-lg tracking-wider font-semibold hover:text-[#8c6b5d] transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
           >
             KENNETH NAING
           </a>
@@ -172,7 +151,7 @@ export default function App() {
               window.location.hash = "about";
               setActiveProject(null);
             }}
-            className="hover:text-[#e8e4df] hover:underline underline-offset-4 transition-all"
+            className="hover:text-[#e8e4df] hover:underline underline-offset-4 transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]"
           >
             01 / BIOGRAPHY
           </a>
@@ -182,7 +161,7 @@ export default function App() {
               window.location.hash = "work";
               setActiveProject(null);
             }}
-            className="hover:text-[#e8e4df] hover:underline underline-offset-4 transition-all"
+            className="hover:text-[#e8e4df] hover:underline underline-offset-4 transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]"
           >
             02 / WORKS
           </a>
@@ -192,7 +171,7 @@ export default function App() {
               window.location.hash = "recognition";
               setActiveProject(null);
             }}
-            className="hover:text-[#e8e4df] hover:underline underline-offset-4 transition-all"
+            className="hover:text-[#e8e4df] hover:underline underline-offset-4 transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]"
           >
             03 / SELECTION
           </a>
@@ -202,19 +181,12 @@ export default function App() {
               window.location.hash = "contact";
               setActiveProject(null);
             }}
-            className="hover:text-[#e8e4df] hover:underline underline-offset-4 transition-all"
+            className="hover:text-[#e8e4df] hover:underline underline-offset-4 transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]"
           >
             04 / CONNECT
           </a>
         </nav>
 
-        {/* Live Status Clocks */}
-        <div className="flex items-center space-x-4 font-mono text-[11px] text-[#a1a1aa] bg-[#252528]/20 px-3.5 py-1.5 rounded border border-[#252528]/40">
-          <span className="inline-block w-2 h-2 rounded-full bg-[#8c6b5d] animate-pulse" />
-          <span className="font-medium tracking-wider">{bangkokTime || "12:00:00 ICT"}</span>
-          <span className="text-neutral-700">·</span>
-          <span className="hidden sm:inline text-[10px] uppercase text-[#a1a1aa]">BKK, TH</span>
-        </div>
       </header>
 
       {activeProject ? (
@@ -330,6 +302,12 @@ export default function App() {
             {/* Biography Text Right */}
             <div className="lg:col-span-7 space-y-8 lg:pt-4">
               <div className="space-y-6">
+                <h2 className="font-serif text-3xl sm:text-4xl text-[#e8e4df] leading-tight font-light">
+                  Kenneth Naing{" "}
+                  <span className="text-[#a1a1aa] text-xl sm:text-2xl">
+                    aka Kaung Htet Naing
+                  </span>
+                </h2>
                 <h3 className="font-serif text-3xl sm:text-4xl text-[#e8e4df] leading-snug font-light">
                 Multimedia designer building work across film, motion, <span className="italic text-[#8c6b5d]">and digital space.</span>.
                 </h3>
@@ -355,7 +333,7 @@ export default function App() {
                   {BIOGRAPHY.skills.map((skill, index) => (
                     <span 
                       key={index} 
-                      className="px-3.5 py-1.5 rounded bg-[#252528]/30 hover:bg-[#8c6b5d]/10 hover:text-[#8c6b5d] border border-[#252528]/50 hover:border-[#8c6b5d]/20 text-xs text-[#d1d1d6] font-mono transition-all duration-300 cursor-default"
+                      className="px-3.5 py-1.5 rounded bg-[#252528]/30 hover:bg-[#8c6b5d]/10 hover:text-[#8c6b5d] border border-[#252528]/50 hover:border-[#8c6b5d]/20 text-xs text-[#d1d1d6] font-mono transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] cursor-default"
                     >
                       {skill}
                     </span>
@@ -372,7 +350,7 @@ export default function App() {
                   {BIOGRAPHY.softwareSkills.map((skill, index) => (
                     <span
                       key={index}
-                      className="group flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#252528]/30 border border-[#252528]/50 hover:border-[#8c6b5d]/30 hover:bg-[#8c6b5d]/5 transition-all duration-300 cursor-default"
+                      className="group flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#252528]/30 border border-[#252528]/50 hover:border-[#8c6b5d]/30 hover:bg-[#8c6b5d]/5 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] cursor-default"
                     >
                       <span className="text-[9px] font-mono uppercase tracking-wider text-[#8c6b5d]/60 group-hover:text-[#8c6b5d] transition-colors">
                         {skill.category}
@@ -481,7 +459,7 @@ export default function App() {
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
-                  className={`px-4 py-2 rounded text-[11px] font-mono tracking-widest uppercase transition-all duration-300 ${
+                  className={`px-4 py-2 rounded text-[11px] font-mono tracking-widest uppercase transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                     selectedCategory === category
                       ? "bg-[#8c6b5d] text-[#0c0c0c] font-semibold shadow-lg"
                       : "text-[#a1a1aa] hover:text-[#e8e4df] hover:bg-[#252528]/40"
@@ -507,19 +485,19 @@ export default function App() {
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                     onClick={() => openProject(project.id)}
-                    className="group bg-[#121113] border border-[#252528]/50 hover:border-[#8c6b5d]/30 rounded overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-black/60 transition-all duration-500 cursor-pointer flex flex-col justify-between"
+                    className="group bg-[#121113] border border-[#252528]/50 hover:border-[#8c6b5d]/30 rounded overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-black/60 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] cursor-pointer flex flex-col justify-between"
                   >
                     {/* Media Frame */}
                     <div className="relative overflow-hidden aspect-[16/10] md:aspect-[16/9] bg-[#141315]">
                       
                       {/* Gradient Overlay */}
-                      <div className="absolute inset-0 bg-neutral-950/20 group-hover:bg-neutral-950/50 z-10 transition-colors duration-500" />
+                      <div className="absolute inset-0 bg-neutral-950/20 group-hover:bg-neutral-950/50 z-10 transition-colors duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]" />
                       
                       {/* Interactive Eye Icon Reveal on Hover */}
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-                        <span className="flex items-center space-x-2 bg-[#0c0c0c]/95 border border-[#8c6b5d]/30 px-4 py-2.5 rounded font-mono text-xs text-[#8c6b5d] tracking-widest backdrop-blur-sm shadow-xl scale-95 group-hover:scale-100 transition-all duration-500">
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] z-20">
+                        <span className="flex items-center space-x-2 bg-[#0c0c0c]/95 border border-[#8c6b5d]/30 px-4 py-2.5 rounded font-mono text-xs text-[#8c6b5d] tracking-widest backdrop-blur-sm shadow-xl scale-95 group-hover:scale-100 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]">
                           <Eye size={13} />
                           <span>EXPAND STILL</span>
                         </span>
@@ -530,7 +508,7 @@ export default function App() {
                         src={project.image} 
                         alt={project.title} 
                         referrerPolicy="no-referrer"
-                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-900 ease-[cubic-bezier(0.22,1,0.36,1)]"
                       />
 
                       {/* Corner Meta Tags */}
@@ -552,10 +530,10 @@ export default function App() {
                     {/* Metadata Content Block */}
                     <div className="p-6 md:p-8 space-y-4">
                       <div className="flex justify-between items-baseline gap-4 border-b border-[#252528]/40 pb-3">
-                        <h3 className="font-serif text-xl sm:text-2xl text-[#e8e4df] group-hover:text-[#8c6b5d] transition-colors duration-300 font-normal">
+                        <h3 className="font-serif text-xl sm:text-2xl text-[#e8e4df] group-hover:text-[#8c6b5d] transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] font-normal">
                           {project.title}
                         </h3>
-                        <span className="font-mono text-[10px] text-[#a1a1aa] tracking-widest text-[#8c6b5d]/70 group-hover:text-[#8c6b5d] transition-colors duration-300">
+                        <span className="font-mono text-[10px] text-[#a1a1aa] tracking-widest text-[#8c6b5d]/70 group-hover:text-[#8c6b5d] transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
                           VIEW DETAILS ↗
                         </span>
                       </div>
@@ -632,7 +610,7 @@ export default function App() {
           <div className="py-6 flex flex-col items-center space-y-4">
             <a 
               href={`mailto:${SOCIAL_LINKS.email}`}
-              className="group inline-flex items-center space-x-3 border border-[#8c6b5d]/25 bg-[#121113] hover:bg-[#8c6b5d] hover:text-[#0c0c0c] px-8 py-4 rounded-full text-base sm:text-lg tracking-wider font-mono transition-all duration-500 hover:shadow-xl hover:shadow-amber-500/5 hover:-translate-y-1"
+              className="group inline-flex items-center space-x-3 border border-[#8c6b5d]/25 bg-[#121113] hover:bg-[#8c6b5d] hover:text-[#0c0c0c] px-8 py-4 rounded-full text-base sm:text-lg tracking-wider font-mono transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] hover:shadow-xl hover:shadow-amber-500/5 hover:-translate-y-1"
             >
               <Mail size={18} className="text-[#8c6b5d] group-hover:text-[#0c0c0c] transition-colors animate-pulse" />
               <span>{SOCIAL_LINKS.email}</span>
@@ -640,7 +618,7 @@ export default function App() {
 
             <a
               href={`tel:${SOCIAL_LINKS.phone}`}
-              className="group inline-flex items-center space-x-3 border border-[#252528] bg-[#121113] hover:border-[#8c6b5d]/40 px-6 py-3 rounded-full text-sm tracking-wider font-mono transition-all duration-300 text-[#a1a1aa] hover:text-[#e8e4df]"
+              className="group inline-flex items-center space-x-3 border border-[#252528] bg-[#121113] hover:border-[#8c6b5d]/40 px-6 py-3 rounded-full text-sm tracking-wider font-mono transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] text-[#a1a1aa] hover:text-[#e8e4df]"
             >
               <Phone size={14} className="text-[#8c6b5d]" />
               <span>{SOCIAL_LINKS.phone}</span>

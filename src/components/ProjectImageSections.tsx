@@ -94,7 +94,7 @@ export default function ProjectImageSections({ sections }: ProjectImageSectionsP
                       src={image.src}
                       alt={image.alt || section.title}
                       referrerPolicy="no-referrer"
-                      className="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-700 ease-out"
+                      className="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-900 ease-[cubic-bezier(0.22,1,0.36,1)]"
                     />
                   </div>
                 )}

@@ -68,7 +68,7 @@ export default function ProjectDetail({ project, onBack, onNextProject }: Projec
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
       className="min-h-screen bg-[#0c0c0c] text-[#e8e4df] pt-24 pb-32 font-sans"
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12">
@@ -77,9 +77,9 @@ export default function ProjectDetail({ project, onBack, onNextProject }: Projec
         <div className="flex justify-between items-center mb-12 border-b border-white/10 pb-6">
           <button 
             onClick={onBack}
-            className="group flex items-center space-x-3 text-xs font-mono uppercase tracking-[0.2em] text-[#a1a1aa] hover:text-[#8c6b5d] transition-colors"
+            className="group flex items-center space-x-3 text-xs font-mono uppercase tracking-[0.2em] text-[#a1a1aa] hover:text-[#8c6b5d] transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
           >
-            <ArrowLeft size={14} className="group-hover:-translate-x-1.5 transition-transform duration-300" />
+            <ArrowLeft size={14} className="group-hover:-translate-x-1.5 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" />
             <span>Back to digital gallery</span>
           </button>
 
@@ -209,7 +209,7 @@ export default function ProjectDetail({ project, onBack, onNextProject }: Projec
                     href={primaryWatchLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center space-x-2 font-mono text-[11px] uppercase tracking-widest text-[#8c6b5d] hover:text-[#e8e4df] transition-colors"
+                    className="inline-flex items-center space-x-2 font-mono text-[11px] uppercase tracking-widest text-[#8c6b5d] hover:text-[#e8e4df] transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
                   >
                     <Play size={12} />
                     <span>{project.watchLabel || "Open on YouTube"}</span>
@@ -226,13 +226,13 @@ export default function ProjectDetail({ project, onBack, onNextProject }: Projec
                 </h3>
                 <div className="flex justify-center lg:justify-start">
                   <div className="relative group w-full max-w-[280px]">
-                    <div className="absolute -inset-3 border border-[#8c6b5d]/15 pointer-events-none group-hover:border-[#8c6b5d]/30 transition-colors duration-500 rounded" />
+                    <div className="absolute -inset-3 border border-[#8c6b5d]/15 pointer-events-none group-hover:border-[#8c6b5d]/30 transition-colors duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] rounded" />
                     <div className="aspect-[2/3] bg-[#121113] border border-white/5 rounded overflow-hidden relative shadow-2xl">
                       <img 
                         src={project.poster} 
                         alt={`${project.title} film poster`} 
                         referrerPolicy="no-referrer"
-                        className="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-700 ease-out"
+                        className="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-900 ease-[cubic-bezier(0.22,1,0.36,1)]"
                       />
                       <div className="absolute inset-x-0 bottom-0 bg-[#0c0c0c]/90 px-4 py-3 border-t border-white/5 font-mono text-[9px] tracking-wider text-[#a1a1aa] uppercase">
                         OFFICIAL FILM POSTER
@@ -302,7 +302,7 @@ export default function ProjectDetail({ project, onBack, onNextProject }: Projec
                 
                 <div className="border border-white/5 rounded overflow-hidden divide-y divide-white/5">
                   {project.details.credits.map((credit, idx) => (
-                    <div key={idx} className="flex justify-between items-center py-2.5 px-3.5 text-xs font-mono bg-[#0c0c0c]/20 hover:bg-[#0c0c0c]/50 transition-colors">
+                    <div key={idx} className="flex justify-between items-center py-2.5 px-3.5 text-xs font-mono bg-[#0c0c0c]/20 hover:bg-[#0c0c0c]/50 transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
                       <span className="text-neutral-500 uppercase text-[9px] tracking-wider">{credit.role}</span>
                       <span className="text-[#e8e4df] font-medium text-right text-[11px]">{credit.name}</span>
                     </div>
@@ -318,7 +318,7 @@ export default function ProjectDetail({ project, onBack, onNextProject }: Projec
               </p>
               <button
                 onClick={handleInitiateCommission}
-                className="inline-flex items-center space-x-2 text-[#8c6b5d] hover:text-[#e8e4df] font-semibold transition-colors"
+                className="inline-flex items-center space-x-2 text-[#8c6b5d] hover:text-[#e8e4df] font-semibold transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
               >
                 <span>GET IN TOUCH</span>
                 <ExternalLink size={12} />
@@ -343,16 +343,16 @@ export default function ProjectDetail({ project, onBack, onNextProject }: Projec
           <div className="flex items-center space-x-4">
             <button 
               onClick={onBack}
-              className="px-6 py-3 border border-white/10 hover:border-white/30 rounded font-mono text-xs tracking-widest uppercase hover:bg-white/5 transition-all cursor-pointer"
+              className="px-6 py-3 border border-white/10 hover:border-white/30 rounded font-mono text-xs tracking-widest uppercase hover:bg-white/5 transition-all duration-600 ease-[cubic-bezier(0.22,1,0.36,1)] cursor-pointer"
             >
               Gallery Home
             </button>
             <button 
               onClick={onNextProject}
-              className="flex items-center space-x-2 px-6 py-3 bg-[#8c6b5d] text-[#0c0c0c] font-semibold rounded font-mono text-xs tracking-widest uppercase hover:bg-[#8c6b5d]/90 hover:shadow-lg hover:shadow-[#8c6b5d]/10 transition-all cursor-pointer group"
+              className="flex items-center space-x-2 px-6 py-3 bg-[#8c6b5d] text-[#0c0c0c] font-semibold rounded font-mono text-xs tracking-widest uppercase hover:bg-[#8c6b5d]/90 hover:shadow-lg hover:shadow-[#8c6b5d]/10 transition-all duration-600 ease-[cubic-bezier(0.22,1,0.36,1)] cursor-pointer group"
             >
               <span>Next Project</span>
-              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" />
             </button>
           </div>
         </div>
